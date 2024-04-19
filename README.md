@@ -28,7 +28,7 @@ api.active_calendar("梦江南").then(res=>{
 })
 //WS推送消息
 const ws = new jx3api.ws({token="XXX"})
-ws.on('10001',(msg)=>{
+ws.on('1001',(msg)=>{
     console.log(msg)
 })
 ```
