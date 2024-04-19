@@ -17314,14 +17314,14 @@ class Request {
 }
 
 /**
- * 创建一个新的 jx3api 实例。
+ * 创建一个新的 api 实例。
  *
  * @param {Object} options - 请求的选项。
  * @param {string} options.token - jx3api的token。
  * @param {string} options.ticket - 推栏ticket。
  * @param {string} [url="https://www.jx3api.com"] - 请求的 URL。默认为 "https://www.jx3api.com"。
  */
-class jx3api extends Request {
+class api extends Request {
   constructor(options, url = "https://www.jx3api.com") {
     super(options, url);
   }
@@ -22189,7 +22189,7 @@ class reConnectWebSocket {
    * 连接到 WebSocket 服务器。
    */
   connect() {
-    this.ws = new WebSocket$1(this.url, options);
+    this.ws = new WebSocket$1(this.url, this.options);
     this.ws.on("open", () => {
       console.log("WebSocket 已连接");
       this.startHeartbeat();
@@ -22197,11 +22197,11 @@ class reConnectWebSocket {
     });
 
     this.ws.on("message", (data) => {
-      console.log("收到消息:", data);
+      const msg = JSON.parse(data);
+      console.log("收到消息:", msg);
       this.messageCallBack.forEach((cb) => {
-        cb(JSON.parse(data));
+        cb(msg);
       });
-      // 在这里处理接收到的消息
     });
 
     this.ws.on("error", (error) => {
@@ -22241,15 +22241,15 @@ class reConnectWebSocket {
   startHeartbeat() {
     this.heartbeatTimer = setInterval(() => {
       if (this.ws.readyState === WebSocket$1.OPEN) {
-        console.log("发送心跳");
-        this.ws.send("心跳");
+        // console.log("发送心跳");
+        this.ws.ping();
       } else {
         this.reconnect(); // 如果 WebSocket 不处于打开状态，则重新连接
       }
     }, this.heartbeatInterval);
 
     this.ws.on("pong", () => {
-      console.log("收到心跳响应");
+      // console.log("收到心跳响应");
     });
 
     this.ws.ping(); // 发送初始 ping
@@ -22290,19 +22290,22 @@ class reConnectWebSocket {
   }
 }
 
-class jx3ws {
-  url = null;
-  options = null;
+class ws {
+  url = "wss://socket.nicemoe.cn";
+  token = null;
   events = new Map();
 
-  constructor(url, options = undefined) {
-    this.url = url;
-    this.options = options;
+  constructor(options) {
+    this.token = options.token || null;
     this._initWebSocket();
   }
 
   _initWebSocket() {
-    this.ws = new reConnectWebSocket(this.url, this.options);
+    this.ws = new reConnectWebSocket(this.url, {
+      headers: {
+        token: this.token,
+      },
+    });
     this.ws.connect();
     this.ws.message(this.dispatch.bind(this)); // 绑定 dispatch 方法的上下文为当前对象
   }
@@ -22359,8 +22362,8 @@ class jx3ws {
 }
 
 var index = {
-    jx3api,
-    jx3ws
+    api,
+    ws
 };
 
 export { index as default };

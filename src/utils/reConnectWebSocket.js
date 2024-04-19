@@ -33,7 +33,7 @@ export class reConnectWebSocket {
    * 连接到 WebSocket 服务器。
    */
   connect() {
-    this.ws = new WebSocket(this.url, options);
+    this.ws = new WebSocket(this.url, this.options);
     this.ws.on("open", () => {
       console.log("WebSocket 已连接");
       this.startHeartbeat();
@@ -41,11 +41,11 @@ export class reConnectWebSocket {
     });
 
     this.ws.on("message", (data) => {
-      console.log("收到消息:", data);
+      const msg = JSON.parse(data);
+      console.log("收到消息:", msg);
       this.messageCallBack.forEach((cb) => {
-        cb(JSON.parse(data));
+        cb(msg);
       });
-      // 在这里处理接收到的消息
     });
 
     this.ws.on("error", (error) => {
@@ -85,15 +85,15 @@ export class reConnectWebSocket {
   startHeartbeat() {
     this.heartbeatTimer = setInterval(() => {
       if (this.ws.readyState === WebSocket.OPEN) {
-        console.log("发送心跳");
-        this.ws.send("心跳");
+        // console.log("发送心跳");
+        this.ws.ping();
       } else {
         this.reconnect(); // 如果 WebSocket 不处于打开状态，则重新连接
       }
     }, this.heartbeatInterval);
 
     this.ws.on("pong", () => {
-      console.log("收到心跳响应");
+      // console.log("收到心跳响应");
     });
 
     this.ws.ping(); // 发送初始 ping
