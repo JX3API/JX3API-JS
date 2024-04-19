@@ -6,7 +6,7 @@
   "module": "./dist/index.mjs",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://github.com/JX3API/jx3api-py",
+  "homepage": "https://github.com/JX3API/JX3API-JS",
   "scripts": {
     "build": "rollup --config",
     "pub":"npm publish"
