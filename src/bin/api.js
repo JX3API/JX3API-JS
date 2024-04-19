@@ -1,14 +1,14 @@
-import { Request } from "./request";
+import { Request } from "../utils/request";
 
 /**
- * 创建一个新的 jx3api 实例。
+ * 创建一个新的 api 实例。
  *
  * @param {Object} options - 请求的选项。
  * @param {string} options.token - jx3api的token。
  * @param {string} options.ticket - 推栏ticket。
  * @param {string} [url="https://www.jx3api.com"] - 请求的 URL。默认为 "https://www.jx3api.com"。
  */
-export class jx3api extends Request {
+export class api extends Request {
   constructor(options, url = "https://www.jx3api.com") {
     super(options, url);
   }
@@ -27,7 +27,7 @@ export class jx3api extends Request {
    * @param {number} [num=0] - 预测时间，预测指定时间的日常，默认值为0（即当天），1为明天，以此类推。
    * @returns {Object} - 包含今天、明天、后天、日常任务的对象。
    */
-   active_calendar(server, num) {
+  active_calendar(server, num = 0) {
     return this._axios.post("/data/active/calendar", {
       server: server,
       num: num,
@@ -42,7 +42,7 @@ export class jx3api extends Request {
    * @param {number} [num=15] - 预测时间，预测指定时间范围内的活动，默认值为15（即当天），1为明天，以此类推。
    * @returns {Object} - 包含预测每天的日常任务的对象。
    */
-   active_list_calendar(num = 15) {
+  active_list_calendar(num = 15) {
     return this._axios.post("/data/active/list/calendar", {
       num: num,
     });
@@ -56,7 +56,7 @@ export class jx3api extends Request {
    * @param {number} [season=2] - 第几赛季，用于返回楚天社或云从社的判断条件，可选值：1-3。
    * @returns {Array<Object>} - 包含当前时间的楚天社/云从社进度的数组。
    */
-   active_celebrity(season = 2) {
+  active_celebrity(season = 2) {
     return this._axios.post("/data/active/celebrity", {
       season: season,
     });
@@ -71,7 +71,7 @@ export class jx3api extends Request {
    * @param {number} [limit=10] - 设置返回的数量，默认值为10。
    * @returns {Array<Object>} - 包含科举试题答案的数组。
    */
-   exam_answer(match, limit = 10) {
+  exam_answer(match, limit = 10) {
     return this._axios.post("/data/exam/answer", {
       match: match,
       limit: limit,
@@ -87,7 +87,7 @@ export class jx3api extends Request {
    * @param {string|null} [map=null] - 地图名称，查找该地图的记录。
    * @returns {Object} - 鲜花价格。
    */
-   home_flower(server, name = null, map = null) {
+  home_flower(server, name = null, map = null) {
     return this._axios.post("/data/home/flower", {
       server: server,
       name: name,
@@ -102,7 +102,7 @@ export class jx3api extends Request {
    * @param {string} name - 装饰名称，查找该装饰的详细记录。
    * @returns {Object} - 装饰详情。
    */
-   home_furniture(name) {
+  home_furniture(name) {
     return this._axios.post("/data/home/furniture", {
       name: name,
     });
@@ -115,7 +115,7 @@ export class jx3api extends Request {
    * @param {string} name - 地图名称，查找该地图的家具。
    * @returns {Array<Object>} - 地图产出装饰。
    */
-   home_travel(name) {
+  home_travel(name) {
     return this._axios.post("/data/home/travel", {
       name: name,
     });
@@ -128,7 +128,7 @@ export class jx3api extends Request {
    * @param {number} [limit=10] - 单页数量，设置返回的数量，默认值为10。
    * @returns {Array<Object>} - 官方最新公告及新闻。
    */
-   news_allnews(limit = 10) {
+  news_allnews(limit = 10) {
     return this._axios.post("/data/news/allnews", {
       limit: limit,
     });
@@ -141,7 +141,7 @@ export class jx3api extends Request {
    * @param {number} [limit=10] - 单页数量，设置返回的数量，默认值为10。
    * @returns {Array<Object>} - 官方最新公告及新闻。
    */
-   news_announce(limit = 10) {
+  news_announce(limit = 10) {
     return this._axios.post("/data/news/announce", {
       limit: limit,
     });
@@ -154,7 +154,7 @@ export class jx3api extends Request {
    * @param {string} name - 心法名称，查找该心法的记录。
    * @returns {Array<Object>} - 推荐的小药清单。
    */
-   school_toxic(name) {
+  school_toxic(name) {
     return this._axios.post("/data/school/toxic", {
       name: name,
     });
@@ -167,7 +167,7 @@ export class jx3api extends Request {
    * @param {string} name - 区服名称，查找该区服的记录。
    * @returns {Object} - 主次服务器信息。
    */
-   server_master(name) {
+  server_master(name) {
     return this._axios.post("/data/server/master", {
       name: name,
     });
@@ -182,7 +182,7 @@ export class jx3api extends Request {
    * @param {string|null} [server=null] - 区服名称，查找该区服的记录。
    * @returns {Object} - 服务器当前状态 [ 维护/正常/繁忙/爆满 ]。
    */
-   server_check(server = null) {
+  server_check(server = null) {
     return this._axios.post("/data/server/check", {
       server: server,
     });
@@ -195,7 +195,7 @@ export class jx3api extends Request {
    * @param {string} server - 区服名称，查找该区服的记录。
    * @returns {Object} - 服务器当前状态 [ 维护/正常/繁忙/爆满 ]。
    */
-   server_status(server) {
+  server_status(server) {
     return this._axios.post("/data/server/status", {
       server: server,
     });
@@ -213,7 +213,7 @@ export class jx3api extends Request {
    * @param {string} roleId - 角色数字标识，查找该标识的记录。
    * @returns {Object} - 角色信息。
    */
-   save_detailed(server, roleId) {
+  save_detailed(server, roleId) {
     return this._axios.post("/data/save/detailed", {
       server: server,
       roleid: roleId,
@@ -229,7 +229,7 @@ export class jx3api extends Request {
    * @param {string} name - 角色名称，查找目标角色的记录。
    * @returns {Object} - 角色详细信息。
    */
-   role_detailed(server, name) {
+  role_detailed(server, name) {
     return this._axios.post("/data/role/detailed", {
       server: server,
       name: name,
@@ -244,7 +244,7 @@ export class jx3api extends Request {
    * @param {string} name - 心法名称，查找该心法的记录。
    * @returns {Object} - 职业阵眼效果。
    */
-   school_matrix(name) {
+  school_matrix(name) {
     return this._axios.post("/data/school/matrix", {
       name: name,
     });
@@ -258,7 +258,7 @@ export class jx3api extends Request {
    * @param {string} name - 心法名称，查找该心法的记录。
    * @returns {Array<Object>} - 奇穴详细效果。
    */
-   school_force(name) {
+  school_force(name) {
     return this._axios.post("/data/school/force", {
       name: name,
     });
@@ -272,7 +272,7 @@ export class jx3api extends Request {
    * @param {string} name - 心法名称，查找该心法的记录。
    * @returns {Array<Object>} - 技能详细信息。
    */
-   school_skills(name) {
+  school_skills(name) {
     return this._axios.post("/data/school/skills", {
       name: name,
     });
@@ -288,7 +288,7 @@ export class jx3api extends Request {
    * @param {number} [limit=1] - 单页数量，单页返回的数量。
    * @returns {Array<Object>} - 该服务器随机选择的结果。
    */
-   tieba_random(subclass, server = null, limit = 1) {
+  tieba_random(subclass, server = null, limit = 1) {
     return this._axios.post("/data/tieba/random", {
       subclass: subclass,
       server: server,
@@ -304,7 +304,7 @@ export class jx3api extends Request {
    * @param {string} name - 角色名称，查找该角色的记录。
    * @returns {Object} - 装备属性详细信息。
    */
-   role_attribute(server, name) {
+  role_attribute(server, name) {
     return this._axios.post("/data/role/attribute", {
       server: server,
       name: name,
@@ -319,7 +319,7 @@ export class jx3api extends Request {
    * @param {string} name - 角色名称，查找该角色的记录。
    * @returns {Object} - 副本记录。
    */
-   role_teamcdlist(server, name) {
+  role_teamcdlist(server, name) {
     return this._axios.post("/data/role/teamCdList", {
       server: server,
       name: name,
@@ -334,7 +334,7 @@ export class jx3api extends Request {
    * @param {string} name - 角色名称，查找该角色的记录。
    * @returns {Array<Object>} - 奇遇记录。
    */
-   luck_adventure(server, name) {
+  luck_adventure(server, name) {
     return this._axios.post("/data/luck/adventure", {
       server: server,
       name: name,
@@ -350,7 +350,7 @@ export class jx3api extends Request {
    * @param {number} [limit=20] - 单页数量，单页返回的数量，默认值 : 20。
    * @returns {Array<Object>} - 奇遇近期触发统计。
    */
-   luck_statistical(server, name, limit = 20) {
+  luck_statistical(server, name, limit = 20) {
     return this._axios.post("/data/luck/statistical", {
       server: server,
       name: name,
@@ -366,7 +366,7 @@ export class jx3api extends Request {
    * @param {number} [limit=20] - 单页数量，设置返回的数量，默认值: 20。
    * @returns {Array<Object>} - 全服近期奇遇记录。
    */
-   luck_server_statistical(name, limit = 20) {
+  luck_server_statistical(name, limit = 20) {
     return this._axios.post("/data/luck/server/statistical", {
       name: name,
       limit: limit,
@@ -381,7 +381,7 @@ export class jx3api extends Request {
    * @param {number} [num=7] - 汇总时间，汇总指定天数内的记录，默认值: 7。
    * @returns {Array<Object>} - 奇遇触发记录。
    */
-   luck_collect(server, num = 7) {
+  luck_collect(server, num = 7) {
     return this._axios.post("/data/luck/collect", {
       server: server,
       num: num,
@@ -397,7 +397,7 @@ export class jx3api extends Request {
    * @param {string} name - 成就/系列名称，查询该成就/系列的完成进度。
    * @returns {Array<Object>} - 角色成就进度。
    */
-   role_achievement(server, role, name) {
+  role_achievement(server, role, name) {
     return this._axios.post("/data/role/achievement", {
       server: server,
       role: role,
@@ -416,7 +416,7 @@ export class jx3api extends Request {
    * @param {number} [mode=0] - 比赛模式，查找该模式的记录。
    * @returns {Object} - 角色近期战绩记录。
    */
-   match_recent(server, name, mode = 0) {
+  match_recent(server, name, mode = 0) {
     return this._axios.post("/data/match/recent", {
       server: server,
       name: name,
@@ -432,7 +432,7 @@ export class jx3api extends Request {
    * @param {number} [limit=20] - 单页数量，设置返回的数量，默认值: 20。
    * @returns {Object} - 名剑排行。
    */
-   match_awesome(mode = 33, limit = 20) {
+  match_awesome(mode = 33, limit = 20) {
     return this._axios.post("/data/match/awesome", {
       mode: mode,
       limit: limit,
@@ -446,7 +446,7 @@ export class jx3api extends Request {
    * @param {number} [mode=33] - 比赛模式，查找该模式的记录，默认值: 33。
    * @returns {Array<Object>} - 角色近期战绩记录。
    */
-   match_schools(mode = 33) {
+  match_schools(mode = 33) {
     return this._axios.post("/data/match/schools", {
       mode: mode,
     });
@@ -461,7 +461,7 @@ export class jx3api extends Request {
    * @param {number} [table=1] - 指定表记录，1=本服+跨服，2=本服，3=跨服，默认值: 1。
    * @returns {Object} - 团队招募信息。
    */
-   member_recruit(server, keyword = null, table = 1) {
+  member_recruit(server, keyword = null, table = 1) {
     return this._axios.post("/data/member/recruit", {
       server: server,
       keyword: keyword,
@@ -477,7 +477,7 @@ export class jx3api extends Request {
    * @param {string} [keyword=null] - 关键字，查找该关键字的记录。
    * @returns {Array<Object>} - 师父列表。
    */
-   member_teacher(server, keyword = null) {
+  member_teacher(server, keyword = null) {
     return this._axios.post("/data/member/teacher", {
       server: server,
       keyword: keyword,
@@ -492,7 +492,7 @@ export class jx3api extends Request {
    * @param {string} [keyword=null] - 关键字，查找该关键字的记录。
    * @returns {Array<Object>} - 徒弟列表。
    */
-   member_student(server, keyword = null) {
+  member_student(server, keyword = null) {
     return this._axios.post("/data/member/student", {
       server: server,
       keyword: keyword,
@@ -506,7 +506,7 @@ export class jx3api extends Request {
    * @param {string} server - 区服名称，查找该区服的记录。
    * @returns {Object} - 沙盘信息。
    */
-   server_sand(server) {
+  server_sand(server) {
     return this._axios.post("/data/server/sand", {
       server: server,
     });
@@ -519,7 +519,7 @@ export class jx3api extends Request {
    * @param {number} [limit=100] - 单页数量，设置返回数量，默认值: 100。
    * @returns {Array<Object>} - 阵营事件详细列表。
    */
-   server_event(limit = 100) {
+  server_event(limit = 100) {
     return this._axios.post("/data/server/event", {
       limit: limit,
     });
@@ -534,7 +534,7 @@ export class jx3api extends Request {
    * @param {number} [limit=10] - 单页数量，设置返回的数量，默认值: 10。
    * @returns {Array<Object>} - 金币比例信息。
    */
-   trade_demon(server = null, limit = 10) {
+  trade_demon(server = null, limit = 10) {
     return this._axios.post("/data/trade/demon", {
       server: server,
       limit: limit,
@@ -548,7 +548,7 @@ export class jx3api extends Request {
    * @param {string} name - 外观名称，查找该外观的记录。
    * @returns {Object} - 物品价格。
    */
-   trade_record(name) {
+  trade_record(name) {
     return this._axios.post("/data/trade/record", {
       name: name,
     });
@@ -563,7 +563,7 @@ export class jx3api extends Request {
    * @param {number} [limit=1] - 单页数量，设置返回的数量，默认值：1。
    * @returns {Array<Object>} - 贴吧记录。
    */
-   tieba_item_records(name, server = "-", limit = 1) {
+  tieba_item_records(name, server = "-", limit = 1) {
     return this._axios.post("/data/tieba/item/records", {
       server: server,
       name: name,
@@ -579,7 +579,7 @@ export class jx3api extends Request {
    * @param {number} [limit=20] - 单页数量，设置返回的数量，默认值：`20`。
    * @returns {Array<Object>} - 贵重物品掉落记录。
    */
-   valuables_statistical(name, limit = 20) {
+  valuables_statistical(name, limit = 20) {
     return this._axios.post("/data/valuables/statistical", {
       name: name,
       limit: limit,
@@ -594,7 +594,7 @@ export class jx3api extends Request {
    * @param {number} [limit=30] - 单页数量，设置返回的数量，默认值 : ``30``。
    * @returns {Array<Object>} - 全服掉落物品记录。
    */
-   valuables_server_statistical(name, limit = 30) {
+  valuables_server_statistical(name, limit = 30) {
     return this._axios.post("/data/valuables/server/statistical", {
       name: name,
       limit: limit,
@@ -609,7 +609,7 @@ export class jx3api extends Request {
    * @param {number} [num=7] - 统计范围，默认值 ``7`` 天。
    * @returns {Array<Object>} - 掉落汇总信息。
    */
-   valuables_collect(server, num = 7) {
+  valuables_collect(server, num = 7) {
     return this._axios.post("/data/valuables/collect", {
       server: server,
       num: num,
@@ -623,7 +623,7 @@ export class jx3api extends Request {
    *
    * @returns {Array<Object>} - 诛恶事件历史记录。
    */
-   server_antivice() {
+  server_antivice() {
     return this._axios.post("/data/server/antivice");
   }
   /**
@@ -636,7 +636,7 @@ export class jx3api extends Request {
    * @param {string} server - 区服名称。
    * @returns {Array<Object>} - 风云榜单。
    */
-   rank_statistical(table, name, server) {
+  rank_statistical(table, name, server) {
     return this._axios.post("/data/rank/statistical", {
       table: table,
       name: name,
@@ -656,7 +656,7 @@ export class jx3api extends Request {
    * @param {string} name - 榜单名称。
    * @returns {Array<Object>} - 全服榜单。
    */
-   rank_server_statistical(table, name) {
+  rank_server_statistical(table, name) {
     return this._axios.post("/data/rank/server/statistical", {
       table: table,
       name: name,
@@ -671,7 +671,7 @@ export class jx3api extends Request {
    * @param {string} [server="ALL"] - 区服名称，查找该区服的记录，默认值: "ALL"。
    * @returns {Array<Object>} - 游戏资历榜单。
    */
-   school_rank_statistical(school = "ALL", server = "ALL") {
+  school_rank_statistical(school = "ALL", server = "ALL") {
     return this._axios.post("/data/school/rank/statistical", {
       school: school,
       server: server,
@@ -685,7 +685,7 @@ export class jx3api extends Request {
    * @param {string} [server=null] - 区服名称，查找该区服的记录。
    * @returns {Array<Object>} - 歪歪频道信息。
    */
-   duowan_statistical(server = null) {
+  duowan_statistical(server = null) {
     return this._axios.post("/data/duowan/statistical", {
       server: server,
     });
@@ -703,7 +703,7 @@ export class jx3api extends Request {
    * @param {string} token - 站点标识，检查请求权限。
    * @returns {Object} - 本周百战异闻录刷新的首领以及特殊效果。
    */
-   active_monster(token) {
+  active_monster(token) {
     return this._axios.post("/data/active/monster", {
       token: token,
     });
@@ -716,7 +716,7 @@ export class jx3api extends Request {
    * @param {string} [server] - 区服名称，查找该区服的记录。
    * @returns {Array<Object>} - 包含的卢统计的数组对象。
    */
-   horse_records(server) {
+  horse_records(server) {
     return this._axios.post("/data/horse/records", {
       server: server,
     });
@@ -729,7 +729,7 @@ export class jx3api extends Request {
    * @param {string} server - 区服名称，查找该区服的记录。
    * @returns {Object} - 包含马场刷新记录的对象。
    */
-   horse_event(server) {
+  horse_event(server) {
     return this._axios.post("/data/horse/event", {
       server: server,
     });
@@ -743,7 +743,7 @@ export class jx3api extends Request {
    * @param {string} name - 角色名称，查找该角色的记录。
    * @returns {Array<Object>} - 包含烟花记录的数组对象。
    */
-   watch_record(server, name) {
+  watch_record(server, name) {
     return this._axios.post("/data/watch/record", {
       server: server,
       name: name,
@@ -759,7 +759,7 @@ export class jx3api extends Request {
    * @param {number} [limit=20] - 单页数量，设置返回的数量，默认为20。
    * @returns {Array<Object>} - 包含烟花统计记录的数组对象。
    */
-   watch_statistical(server, name, limit = 20) {
+  watch_statistical(server, name, limit = 20) {
     return this._axios.post("/data/watch/statistical", {
       server: server,
       name: name,
@@ -775,7 +775,7 @@ export class jx3api extends Request {
    * @param {number} [num=7] - 统计时间，默认为7天。
    * @returns {Array<Object>} - 包含烟花汇总记录的数组对象。
    */
-   watch_collect(server, num = 7) {
+  watch_collect(server, num = 7) {
     return this._axios.post("/data/watch/collect", {
       server: server,
       num: num,
@@ -792,7 +792,7 @@ export class jx3api extends Request {
    * @param {number} that_time - 统计结束的时间，与开始的时间不得超过3个月。
    * @returns {Array<Object>} - 包含烟花排行信息的数组对象。
    */
-   watch_rank_statistical(server, column, this_time, that_time) {
+  watch_rank_statistical(server, column, this_time, that_time) {
     return this._axios.post("/data/watch/rank/statistical", {
       server: server,
       column: column,
@@ -812,7 +812,7 @@ export class jx3api extends Request {
    * @param {string} text - 聊天的完整内容。
    * @returns {Object} - 聊天的详细内容。
    */
-   chat_mixed(name, text) {
+  chat_mixed(name, text) {
     return this._axios.post("/data/chat/mixed", {
       name: name,
       text: text,
@@ -826,7 +826,7 @@ export class jx3api extends Request {
    * @param {string} name - 歌曲名称，查找歌曲的编号。
    * @returns {Array<Object>} - 腾讯音乐编号信息。
    */
-   music_tencent(name) {
+  music_tencent(name) {
     return this._axios.post("/data/music/tencent", {
       name: name,
     });
@@ -840,7 +840,7 @@ export class jx3api extends Request {
    * @param {string} name - 歌曲名称，查找该歌曲的编号。
    * @returns {Array<Object>} - 网易云音乐歌曲编号。
    */
-   music_netease(name) {
+  music_netease(name) {
     return this._axios.post("/data/music/netease", {
       name: name,
     });
@@ -853,7 +853,7 @@ export class jx3api extends Request {
    * @param {string} name - 歌曲名称，查找该歌曲的编号。
    * @returns {Object} - 酷狗音乐歌曲信息。
    */
-   music_kugou(name) {
+  music_kugou(name) {
     return this._axios.post("/data/music/kugou", {
       name: name,
     });
@@ -866,7 +866,7 @@ export class jx3api extends Request {
    * @param {number} uin - 用户QQ号，查找是否存在行骗记录。
    * @returns {Object} - 骗子记录。
    */
-   fraud_detail(uin) {
+  fraud_detail(uin) {
     return this._axios.post("/data/fraud/detail", {
       uin: uin,
     });
@@ -879,7 +879,7 @@ export class jx3api extends Request {
    * @param {string} name - 查找对应词语。
    * @returns {Object} - 成语及其信息。
    */
-   idiom_solitaire(name) {
+  idiom_solitaire(name) {
     return this._axios.post("/data/idiom/solitaire", {
       name: name,
     });
@@ -891,7 +891,7 @@ export class jx3api extends Request {
    *
    * @returns {Object} - 骚话。
    */
-   saohua_random() {
+  saohua_random() {
     return this._axios.post("/data/saohua/random");
   }
   /**
@@ -901,7 +901,7 @@ export class jx3api extends Request {
    *
    * @returns {Object} - 舔狗日记。
    */
-   saohua_content() {
+  saohua_content() {
     return this._axios.post("/data/saohua/content");
   }
   /**
@@ -921,7 +921,7 @@ export class jx3api extends Request {
    * @param {number} [pitch_rate=0] - 音调。
    * @returns {Object} - 语音合成信息。
    */
-   sound_converter({
+  sound_converter({
     appkey,
     access,
     secret,
