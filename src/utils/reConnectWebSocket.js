@@ -30,7 +30,6 @@ export class reConnectWebSocket {
 
     this.ws.on("message", (data) => {
       const msg = JSON.parse(data);
-      console.log("接收到消息:", msg);
       this.messageCallBack.forEach((cb) => {
         cb(msg);
       });
