@@ -22,12 +22,12 @@ npm install jx3api
 import jx3api from "jx3api"
 
 //API接口
-const api = new jx3api.api({token="XXX", ticket="XXX"})
+const api = new jx3api.api({token:"XXX", ticket:"XXX"})
 api.active_calendar("梦江南").then(res=>{
     console.log(res)
 })
 //WS推送消息
-const ws = new jx3api.ws({token="XXX"})
+const ws = new jx3api.ws({token:"XXX"})
 ws.on('1001',(msg)=>{
     console.log(msg)
 })
