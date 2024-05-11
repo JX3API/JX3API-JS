@@ -20,7 +20,6 @@ export class Request {
   }
 
   _createAxios(options, url) {
-    console.log(url);
     //创建axios实例
     let _axios = axios.create({
       timeout: 6000, // 请求超时
