@@ -1,7 +1,7 @@
 import { reConnectWebSocket } from "../utils/reConnectWebSocket.js";
 
 export class ws {
-  url = "wss://socket.nicemoe.cn";
+  url = "wss://socket.jx3api.com";
   token = null;
   events = new Map();
 
@@ -48,6 +48,11 @@ export class ws {
    * 1104 据点占领(有帮会)
    * 1105 据点占据(无帮会)
    * 1106 结算贡献
+   * 1107 战功结算
+   * 1108 宣战开始
+   * 1109 宣战结束
+   * 1110 战场统计
+   * 1111 战场结束
    * 2001 开服监控
    * 2002 新闻资讯
    * 2003 游戏更新
