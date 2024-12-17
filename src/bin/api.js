@@ -57,7 +57,7 @@ export class api extends Request {
    * @returns {Array<Object>} - 包含当前时间的楚天社/云从社进度的数组。
    */
   active_celebrity(season = 2) {
-    return this._axios.post("/data/active/celebrity", {
+    return this._axios.post("/data/active/celebs", {
       season: season,
     });
   }
@@ -320,7 +320,7 @@ export class api extends Request {
    * @returns {Object} - 副本记录。
    */
   role_teamcdlist(server, name) {
-    return this._axios.post("/data/role/teamCdList", {
+    return this._axios.post("/data/role/teamcdlist", {
       server: server,
       name: name,
     });
@@ -407,7 +407,7 @@ export class api extends Request {
   /**
    * 名剑战绩
    *
-   * 角色近期战绩记录。
+   * 角色近期战绩录。
    * 未输入比赛模式时，将返回推栏全部角色近期的比赛记录(推栏个人页面，会出现返回结果非指定角色数据)。
    * 根据 mode 参数请求返回不同的数据结构，最终数据以返回为准。
    *
@@ -417,7 +417,7 @@ export class api extends Request {
    * @returns {Object} - 角色近期战绩记录。
    */
   match_recent(server, name, mode = 0) {
-    return this._axios.post("/data/match/recent", {
+    return this._axios.post("/data/arena/recent", {
       server: server,
       name: name,
       mode: mode,
@@ -433,7 +433,7 @@ export class api extends Request {
    * @returns {Object} - 名剑排行。
    */
   match_awesome(mode = 33, limit = 20) {
-    return this._axios.post("/data/match/awesome", {
+    return this._axios.post("/data/arena/awesome", {
       mode: mode,
       limit: limit,
     });
@@ -447,7 +447,7 @@ export class api extends Request {
    * @returns {Array<Object>} - 角色近期战绩记录。
    */
   match_schools(mode = 33) {
-    return this._axios.post("/data/match/schools", {
+    return this._axios.post("/data/arena/schools", {
       mode: mode,
     });
   }
@@ -489,7 +489,7 @@ export class api extends Request {
    * 客户端师徒系统。
    *
    * @param {string} server - 区服名称，查找该区服的记录。
-   * @param {string} [keyword=null] - 关键字，查找该关键字的记录。
+   * @param {string} [keyword=null] - 关键字，查找该字的记录。
    * @returns {Array<Object>} - 徒弟列表。
    */
   member_student(server, keyword = null) {
@@ -734,72 +734,6 @@ export class api extends Request {
       server: server,
     });
   }
-  /**
-   * 烟花记录
-   *
-   * 烟花赠送与接收的历史记录，不保证遗漏。
-   *
-   * @param {string} server - 区服名称，查找该区服的记录。
-   * @param {string} name - 角色名称，查找该角色的记录。
-   * @returns {Array<Object>} - 包含烟花记录的数组对象。
-   */
-  watch_record(server, name) {
-    return this._axios.post("/data/watch/record", {
-      server: server,
-      name: name,
-    });
-  }
-  /**
-   * 烟花统计
-   *
-   * 统计烟花记录。
-   *
-   * @param {string} server - 区服名称，查找该区服的记录。
-   * @param {string} name - 烟花名称，查找该烟花的记录。
-   * @param {number} [limit=20] - 单页数量，设置返回的数量，默认为20。
-   * @returns {Array<Object>} - 包含烟花统计记录的数组对象。
-   */
-  watch_statistical(server, name, limit = 20) {
-    return this._axios.post("/data/watch/statistical", {
-      server: server,
-      name: name,
-      limit: limit,
-    });
-  }
-  /**
-   * 烟花汇总
-   *
-   * 汇总烟花记录。
-   *
-   * @param {string} server - 区服名称，查找该区服的记录。
-   * @param {number} [num=7] - 统计时间，默认为7天。
-   * @returns {Array<Object>} - 包含烟花汇总记录的数组对象。
-   */
-  watch_collect(server, num = 7) {
-    return this._axios.post("/data/watch/collect", {
-      server: server,
-      num: num,
-    });
-  }
-  /**
-   * 烟花排行
-   *
-   * 烟花赠送与接收的榜单。
-   *
-   * @param {string} server - 区服名称，查找该区服的记录。
-   * @param {string} column - 可选范围：['sender', 'recipient', 'name']。
-   * @param {number} this_time - 统计开始的时间，与结束的时间不得超过3个月。
-   * @param {number} that_time - 统计结束的时间，与开始的时间不得超过3个月。
-   * @returns {Array<Object>} - 包含烟花排行信息的数组对象。
-   */
-  watch_rank_statistical(server, column, this_time, that_time) {
-    return this._axios.post("/data/watch/rank/statistical", {
-      server: server,
-      column: column,
-      this_time: this_time,
-      that_time: that_time,
-    });
-  }
 
   /***********
    * VRF API *
@@ -823,7 +757,7 @@ export class api extends Request {
    *
    * 搜索腾讯音乐歌曲编号。
    *
-   * @param {string} name - 歌曲名称，查找歌曲的编号。
+   * @param {string} name - 歌曲名称，查找歌曲编号。
    * @returns {Array<Object>} - 腾讯音乐编号信息。
    */
   music_tencent(name) {
@@ -867,7 +801,7 @@ export class api extends Request {
    * @returns {Object} - 骗子记录。
    */
   fraud_detail(uin) {
-    return this._axios.post("/data/fraud/detail", {
+    return this._axios.post("/data/fraud/detailed", {
       uin: uin,
     });
   }
@@ -944,6 +878,463 @@ export class api extends Request {
       volume: volume,
       speech_rate: speech_rate,
       pitch_rate: pitch_rate,
+    });
+  }
+
+  /**
+   * 角色精耐
+   *
+   * 查询指定角色的游戏精力、耐力以及技能等级和相关信息。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @param {string} name - 角色名称，查找该角色的记录。
+   * @returns {Object} - 角色精耐与技能等级信息。
+   */
+  role_monster(server, name) {
+    return this._axios.post("/data/role/monster", {
+      server: server,
+      name: name,
+    });
+  }
+
+  /**
+   * 角色在线
+   *
+   * 查询指定角色的在线状态。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @param {string} name - 角色名称，查找该角色的记录。
+   * @returns {Object} - 角色在线状态信息。
+   */
+  role_online_status(server, name) {
+    return this._axios.post("/data/role/online/status", {
+      server: server,
+      name: name,
+    });
+  }
+
+  /**
+   * 技能记录
+   *
+   * 查询指定技能的历史记录。
+   *
+   * @param {string} name - 技能名称，查找该技能的记录。
+   * @returns {Object} - 技能历史记录信息。
+   */
+  skills_records(name) {
+    return this._axios.post("/data/skills/records", {
+      name: name,
+    });
+  }
+
+  /**
+   * 展示随机
+   *
+   * 随机展示信息。
+   *
+   * @param {string} name - 展示类型，查找该类型的记录。
+   * @returns {Object} - 随机展示信息。
+   */
+  show_random(name) {
+    return this._axios.post("/data/show/random", {
+      name: name,
+    });
+  }
+
+  /**
+   * 展示记录
+   *
+   * 查询展示历史记录。
+   *
+   * @param {string} name - 展示类型，查找该类型的记录。
+   * @returns {Object} - 展示历史记录信息。
+   */
+  show_records(name) {
+    return this._axios.post("/data/show/records", {
+      name: name,
+    });
+  }
+
+  /**
+   * 展示卡片
+   *
+   * 查询展示卡片信息。
+   *
+   * @param {string} name - 展示类型，查找该类型的记录。
+   * @returns {Object} - 展示卡片信息。
+   */
+  show_card(name) {
+    return this._axios.post("/data/show/card", {
+      name: name,
+    });
+  }
+
+  /**
+   * 展示缓存
+   *
+   * 查询展示缓存信息。
+   *
+   * @param {string} name - 展示类型，查找该类型的记录。
+   * @returns {Object} - 展示缓存信息。
+   */
+  show_cache(name) {
+    return this._axios.post("/data/show/cache", {
+      name: name,
+    });
+  }
+
+  /**
+   * 服务器领袖
+   *
+   * 查询服务器领袖信息。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @returns {Object} - 服务器领袖信息。
+   */
+  server_leader(server) {
+    return this._axios.post("/data/server/leader", {
+      server: server,
+    });
+  }
+
+  /**
+   * 资历排行
+   *
+   * 查询门派资历排行信息。
+   *
+   * @param {string} school - 门派名称，查找该门派的记录。
+   * @returns {Object} - 门派资历排行信息。
+   */
+  school_seniority(school) {
+    return this._axios.post("/data/school/seniority", {
+      school: school,
+    });
+  }
+
+  /**
+   * 保存周
+   *
+   * 保存每周活动日历。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @returns {Object} - 保存结果。
+   */
+  save_week_calendar(server) {
+    return this._axios.post("/data/save/week/calendar", {
+      server: server,
+    });
+  }
+
+  /**
+   * 保存日历
+   *
+   * 保存客户端日历。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @returns {Object} - 保存结果。
+   */
+  save_client_calendar(server) {
+    return this._axios.post("/data/save/client/calendar", {
+      server: server,
+    });
+  }
+
+  /**
+   * 交搜索
+   *
+   * 统计外观物品的模糊搜索结果。
+   *
+   * @param {string} name - 物品名称，模糊查询与该名称匹配的物品信息。
+   * @returns {Array<Object>} - 物品搜索结果列表。
+   */
+  trade_search(name) {
+    return this._axios.post("/data/trade/search", {
+      name: name,
+    });
+  }
+
+  /**
+   * 交易市场
+   *
+   * 查询指定物品的交易行价格信息。
+   *
+   * @param {string} server - 目标服务器名称用于查询该服务器的交易数据。
+   * @param {string} name - 物品名称，用于查询目标物品的价格信息，支持模糊搜索。
+   * @returns {Array<Object>} - 物品交易价格信息。
+   */
+  trade_market(server, name) {
+    return this._axios.post("/data/trade/market", {
+      server: server,
+      name: name,
+    });
+  }
+
+  /**
+   * 拍卖记录
+   *
+   * 查询阵营拍卖的记录。
+   *
+   * @param {string} server - 指定目标区服，获取该区服的拍卖记录。
+   * @param {string} [name] - 物品名称，支持模糊搜索，默认为空
+   * @param {number} [limit=50] - 限制返回的记录数量，默认值为 50，可选范围为 1-100。
+   * @returns {Array<Object>} - 拍卖记录列表。
+   */
+  auction_records(server, name, limit = 50) {
+    return this._axios.post("/data/auction/records", {
+      server: server,
+      name: name,
+      limit: limit,
+    });
+  }
+
+  /**
+   * 赤兔记录
+   *
+   * 获取今天刷新出的赤兔幼驹相关信息。
+   *
+   * @returns {Array<Object>} - 赤兔记录列表。
+   */
+  chitu_records() {
+    return this._axios.post("/data/chitu/records");
+  }
+
+  /**
+   * 挂件查询
+   *
+   * 查询指定挂件的效果及获取方式。
+   *
+   * @param {string} name - 指定挂件名称，查询目标挂件的相关信息。
+   * @returns {Array<Object>} - 挂件信息列表。
+   */
+  archived_pendant(name) {
+    return this._axios.post("/data/archived/pendant", {
+      name: name,
+    });
+  }
+
+  /**
+   * 宠物事件
+   *
+   * 查询宠物的出现录。
+   *
+   * @param {string} server - 指定目标���服，获取该区服的宠物数据。
+   * @returns {Array<Object>} - 宠物事件记录列表。
+   */
+  archived_pet_event(server) {
+    return this._axios.post("/data/archived/petEvent", {
+      server: server,
+    });
+  }
+
+  /**
+   * 活动预告
+   *
+   * 获取下一次扶摇九天活动开启的时间。
+   *
+   * @param {string} [server] - 指定目标区服，可获取该区服的活动数据。默认为空，表示获取所有服务器的数据。
+   * @returns {Array<Object>} - 活动预告信息列表。
+   */
+  active_next_event(server) {
+    return this._axios.post("/data/active/next/event", {
+      server: server,
+    });
+  }
+
+  /**
+   * 未完成奇遇
+   *
+   * 查询指定角色的未触发奇遇列表。
+   *
+   * @param {string} server - 指定目标区服，查询该区服的相关奇遇记录。
+   * @param {string} name - 指定角色名称，查询该角色的未触发奇遇。
+   * @param {string} [ticket] - 推栏标识，用于检查奇遇记录的完整性；若未提供或输入错误，则不检查数据的完整性。
+   * @returns {Array<string>} - 未触发奇遇列表。
+   */
+  luck_unfinished(server, name, ticket) {
+    return this._axios.post("/data/luck/unfinished", {
+      server: server,
+      name: name,
+      ticket: ticket,
+    });
+  }
+
+  /**
+   * 最近奇遇
+   *
+   * 查询指定区服中近期触发的奇遇记录。
+   *
+   * @param {string} server - 指定目标区服，查询该区服的奇遇记录。
+   * @returns {Array<Object>} - 近期奇遇记录列表。
+   */
+  luck_recent(server) {
+    return this._axios.post("/data/luck/recent", {
+      server: server,
+    });
+  }
+
+  /**
+   * 全服奖励
+   *
+   * 统计当前赛季副本中掉落的特殊物品信息。
+   *
+   * @param {string} name - 指定物品名称，查询目标物品的赛季掉落记录。
+   * @param {number} [limit=30] - 限制返回记录的数量，默认值为 30，可选范围为 1-100。
+   * @returns {Array<Object>} - 赛季掉落记录列表。
+   */
+  reward_server_statistical(name, limit = 30) {
+    return this._axios.post("/data/reward/server/statistical", {
+      name: name,
+      limit: limit,
+    });
+  }
+
+  /**
+   * 奖励统计
+   *
+   * 统计副本掉落的贵重物品记录。
+   *
+   * @param {string} server - 指定目标区服，查询该区服的物品掉落记录。
+   * @param {string} name - 指定物品名称，查询该物品的掉落记录。
+   * @param {number} [limit=20] - 限制返回记录的数量，默认值为 20，可选范围为 1-100。
+   * @returns {Array<Object>} - 物品掉落记录列表。
+   */
+  reward_statistical(server, name, limit = 20) {
+    return this._axios.post("/data/reward/statistical", {
+      server: server,
+      name: name,
+      limit: limit,
+    });
+  }
+
+  /**
+   * 马场信息
+   *
+   * 查询指定区服的马场里即将刷新的马驹信息。
+   *
+   * @param {string} server - ��定目标区服，查询该区服的相关马驹刷新信息。
+   * @returns {Object} - 马场刷新信息。
+   */
+  horse_ranch(server) {
+    return this._axios.post("/data/horse/ranch", {
+      server: server,
+    });
+  }
+
+  /**
+   * 全服排行
+   *
+   * 查询客户端战功榜和风云录，包括个人、帮会、阵营以及试炼相关榜单的详细信息。
+   *
+   * @param {string} table - 榜单类型，可选值：个人、帮会、阵营、试炼。
+   * @param {string} name - 榜单名称，需与table类型关联。
+   * @returns {Array<Object>} - 排行榜信息列表。
+   */
+  rank_server_statistical(table, name) {
+    return this._axios.post("/data/rank/server/statistical", {
+      table: table,
+      name: name,
+    });
+  }
+
+  /**
+   * 排行统计
+   *
+   * 查询客户端战功榜和风云录，包括个人、帮会、阵营以及试炼相关榜单的详细信息。
+   *
+   * @param {string} server - 指定目标区服，查询该区服的榜单信息。
+   * @param {string} table - 榜单类型，可选值：个人、帮会、阵营、试炼。
+   * @param {string} name - 榜单名称，需与table类型关联。
+   * @returns {Array<Object>} - 排行榜信息列表。
+   */
+  rank_statistical(server, table, name) {
+    return this._axios.post("/data/rank/statistical", {
+      server: server,
+      table: table,
+      name: name,
+    });
+  }
+
+  /**
+   * 烟花记录
+   *
+   * 烟花赠送与接收的历史记录，不保证遗漏。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @param {string} name - 角色名称，查找该角色的记录。
+   * @returns {Array<Object>} - 包含烟花记录的数组对象。
+   */
+  fireworks_record(server, name) {
+    return this._axios.post("/data/fireworks/records", {
+      server: server,
+      name: name,
+    });
+  }
+
+  /**
+   * 烟花统计
+   *
+   * 统计烟花记录。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @param {string} name - 烟花名称，查找该烟花的记录。
+   * @param {number} [limit=20] - 单页数量，设置返回的数量，默认为20。
+   * @returns {Array<Object>} - 包含烟花统计记录的数组对象。
+   */
+  fireworks_statistical(server, name, limit = 20) {
+    return this._axios.post("/data/fireworks/statistical", {
+      server: server,
+      name: name,
+      limit: limit,
+    });
+  }
+
+  /**
+   * 烟花汇总
+   *
+   * 汇总烟花记录。
+   *
+   * @param {string} server - 区服名称，查找该区服的记录。
+   * @param {number} [num=7] - 统计时间，默认为7天。
+   * @returns {Array<Object>} - 包含烟花汇总记录的数组对象。
+   */
+  fireworks_collect(server, num = 7) {
+    return this._axios.post("/data/fireworks/collect", {
+      server: server,
+      num: num,
+    });
+  }
+
+  /**
+   * 烟花排行
+   *
+   * 烟花赠送与接收的榜单。
+   *
+   * @param {string} server - 区服名称，查找该服的记录。
+   * @param {string} column - 可选范围：['sender', 'recipient', 'name']。
+   * @param {number} this_time - 统计开始的时间，与结束的时间不得超过3个月。
+   * @param {number} that_time - 统计结束的时间，与开始的时间不得超过3个月。
+   * @returns {Array<Object>} - 包含烟花排行信息的数组对象。
+   */
+  fireworks_rank_statistical(server, column, this_time, that_time) {
+    return this._axios.post("/data/fireworks/rank/statistical", {
+      server: server,
+      column: column,
+      this_time: this_time,
+      that_time: that_time,
+    });
+  }
+
+  /**
+   * PVE事件记录
+   *
+   * 查询PVE事件的历史记录。
+   *
+   * @param {string} server - 指定目标区服获取该区服的PVE事件数据。
+   * @returns {Array<Object>} - PVE事件记录列表。
+   */
+  archived_pve_event(server) {
+    return this._axios.post("/data/archived/pveEvent", {
+      server: server,
     });
   }
 }
