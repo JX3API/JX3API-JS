@@ -14,13 +14,12 @@ export class Request {
       console.log("未指定ticket，部分功能可能受限");
     }
     if (!options.token) {
-      console.log("未指定ticket，将只可使用免费功能");
+      console.log("未指定token，将只可使用免费功能");
     }
     this._createAxios(options, url);
   }
 
   _createAxios(options, url) {
-    console.log(url);
     //创建axios实例
     let _axios = axios.create({
       timeout: 6000, // 请求超时
